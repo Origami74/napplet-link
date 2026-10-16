@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>napplet.link</title>
+<meta name="description" content="Links that open the right napplet.">
+<style>
+  :root { --bg: #eef4f8; --text: #0f172a; --muted: #64748b; --card: #ffffff; --accent: #059669; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0b1220; --text: #e2e8f0; --muted: #94a3b8; --card: #111a2e; --accent: #34d399; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, sans-serif; }
+  main { max-width: 34rem; margin: 0 auto; padding: 48px 16px; }
+  .card { background: var(--card); border-radius: 20px; padding: 24px; box-shadow: 0 6px 22px rgba(0,0,0,.08); }
+  h1 { margin: 0 0 4px; font-size: 1.6rem; }
+  p { color: var(--muted); }
+  code { word-break: break-all; }
+  a.btn { display: inline-block; margin-top: 12px; padding: 12px 20px; border-radius: 999px; background: var(--accent); color: #fff; text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1 id="title">napplet.link</h1>
+    <p id="what">Links that open the right napplet: small Nostr apps that run inside a napplet shell.</p>
+    <div id="open"></div>
+  </div>
+  <p>A link here names a role and an action, like <code>/gear-list/open?naddr=…</code>. A shell such as Myco opens whichever app you chose for that role.</p>
+</main>
+<script>
+  // Mirrors NAP-INTENT's convention: /<archetype>/<intent>?<params> is
+  // napplet:<archetype>/<intent>?<params>. Nothing is sent anywhere.
+  (function () {
+    var parts = location.pathname.split('/').filter(Boolean);
+    var slug = /^[a-z0-9][a-z0-9-]{0,63}$/;
+    if (parts.length !== 2 || !slug.test(parts[0]) || !slug.test(parts[1])) return;
+    var uri = 'napplet:' + parts[0] + '/' + parts[1] + location.search;
+    document.getElementById('title').textContent = 'Open ' + parts[0].replace(/-/g, ' ');
+    document.getElementById('what').textContent = 'This link opens in a napplet shell. If you have Myco, it opens there.';
+    var a = document.createElement('a');
+    a.className = 'btn';
+    a.href = uri;
+    a.textContent = 'Open in your napplet shell';
+    document.getElementById('open').appendChild(a);
+  })();
+</script>
+</body>
+</html>

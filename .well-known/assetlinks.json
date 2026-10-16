@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.myco",
+      "sha256_cert_fingerprints": [
+        "81:39:9D:5F:8D:7A:92:26:C8:26:F0:D6:B2:EB:7A:5C:8A:1C:86:41:BF:4A:89:3C:00:58:AA:45:AB:55:89:35"
+      ]
+    }
+  }
+]
