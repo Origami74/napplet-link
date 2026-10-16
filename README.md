@@ -15,8 +15,11 @@ The static site behind `https://napplet.link`, served by Cloudflare Pages.
 
 `sha256_cert_fingerprints` must list every certificate Myco is signed with:
 
-- the debug key on the dev Mac (in the file now);
-- the release key (`myco-release.jks`) — add its fingerprint before a release:
+- the release key (`myco-release.jks`), which signs the GitHub release APKs
+  (`98:43:2B:…:7E:79`, read from v0.10.0 and v0.11.0 with
+  `apksigner verify --print-certs`) — in the file;
+- the debug key on the dev Mac — in the file;
+- any other developer's debug key, or a new release key, read with:
 
   ```
   keytool -list -v -keystore myco-release.jks -alias <alias> | grep SHA256
